@@ -44,6 +44,7 @@ class Cookbook
           recipe.prep_time,
           recipe.done?
         ]
+      end
     end
   end
 

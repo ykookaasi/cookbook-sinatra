@@ -1,0 +1,15 @@
+<h1>Welcome to your Recipe Book</h1>
+
+<% if @recipes.empty? %>
+  <p>You have no recipe links. Add a recipe or search a recipe to add.</p>
+<% else %>
+  <p>You currently have in your cookbook:</p>
+  <ul>
+    <% @recipes.each_with_index do |recipe, index| %>
+      <li><%= recipe.name %>: <%= recipe.description %> - <a href="/recipes/<%= index %>">Delete</a></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<a href="/new">Add a recipe</a>
+<a href="/search">Find a recipe</a>

@@ -22,3 +22,5 @@ get '/team/:username' do
   puts params[:username]
   "The username is #{params[:username]}"
 end
+
+set :bind, '0.0.0.0'

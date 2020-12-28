@@ -8,5 +8,17 @@ configure :development do
 end
 
 get '/' do
-  'My cookbook app on sinatra'
+
+  erb :index
+end
+
+get '/about' do
+  @usernames = ['yoko', 'grzegorz']
+  erb :about
+end
+
+get '/team/:username' do
+  # binding.pry
+  puts params[:username]
+  "The username is #{params[:username]}"
 end

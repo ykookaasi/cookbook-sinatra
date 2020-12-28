@@ -27,8 +27,8 @@ class ScrapeAllrecipesService
       description = find_description(element)
       rating = find_rating(element)
       recipe_link = find_recipe_link(element)
-      preptime = get_preptime(recipe_link)
-      results << Recipe.new(name: name, description: description, rating: rating, preptime: preptime)
+      prep_time = get_prep_time(recipe_link)
+      results << Recipe.new(name: name, description: description, rating: rating, prep_time: prep_time)
     end
     results
   end
@@ -49,7 +49,7 @@ class ScrapeAllrecipesService
     element.search('a').first['href']
   end
 
-  def get_preptime(recipe_link)
+  def get_prep_time(recipe_link)
     doc = Nokogiri::HTML(File.open(recipe_link), nil, 'utf-8')
     doc.search('.recipe-meta-item-body').first.text.strip
   end

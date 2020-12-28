@@ -8,7 +8,7 @@ configure :development do
 end
 
 get '/' do
-
+  @recipes = Recipe.all
   erb :index
 end
 

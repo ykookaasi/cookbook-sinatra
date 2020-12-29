@@ -1,19 +1,16 @@
 class Recipe
-   attr_accessor :name, :description, :rating, :preptime, :done
+  attr_reader :name, :description, :rating, :prep_time, :tested
 
-  def initialize(attributes = {})
-    @name = attributes[:name]
-    @description = attributes[:description]
-    @rating = attributes[:rating]
-    @done = attributes[:done] || false
-    @prep_time = attributes[:prep_time]
+  def initialize(params)
+    @name = params[:name]
+    @description = params[:description]
+    @rating = params[:rating]
+    @prep_time = params[:prep_time]
+
+    @tested = params[:done] == "true" ? true : false
   end
 
-  def done?
-    @done
-  end
-
-  def mark_as_done!
-    @done = true
+  def mark_as_tested!
+    @tested = true
   end
 end

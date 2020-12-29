@@ -1,12 +1,21 @@
-<h1>What ingredient would you like a recipe for?</h1>
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <h2>Search allrecipes.com for new recipes</h2>
 
-<form action="/recipes" method="post">
-  <div>
-    <label for="name">Ingredient</label>
-    <input type="text" name="name">
+      <form action="/search/recipes" method="get">
+        <div class="form-group">
+          <div class="input-group">
+            <input class="form-control" placeholder="Ingredient" name="keyword" type="text">
+          </div>
+        </div>
+        <button class="btn btn-success" type="submit">Search Recipes</button>
+      </form>
+
+      <a href="/">Back to list</a>
+    </div>
   </div>
-  <input type="submit" value="Search ingredients">
-</form>
+</div>
 
-<a href="/">Back to list</a>
+
 

@@ -6,18 +6,18 @@ require "csv"
 
 require_relative "models/cookbook"
 require_relative "models/recipe"
-require_relative "services/scraper"
-require_relative 'scraper'
+require_relative "services/scrape_allrecipes"
 
 configure :development do
   use BetterErrors::Middleware
   BetterErrors.application_root = File.expand_path('..', __FILE__)
 end
 
+COOKBOOK = Cookbook.new(File.join(__dir__, 'recipes.csv'))
+SCRAPER = ScrapeAllrecipesService.new
+
 get '/' do
-  csv_file = File.join(__dir__, 'recipes.csv')
-  cookbook = Cookbook.new(csv_file)
-  @recipes = cookbook.all
+  @recipes = COOKBOOK.all
   erb :index
 end
 
@@ -25,36 +25,37 @@ get '/new' do
   erb :new
 end
 
-post '/recipes' do
-  cookbook = Cookbook.new(File.join(__dir__, 'recipes.csv'))
-  recipe = Recipe.new(params[:name], params[:description])
-  cookbook.add(recipe)
+post '/recipes/create' do
+  recipe = Recipe.new(params)
+  COOKBOOK.add_recipe(recipe)
   redirect to '/'
 end
 
-get '/recipes/:index' do
-  cookbook = Cookbook.new(File.join(__dir__, 'recipes.csv'))
-  cookbook.remove_at(params[:index].to_i)
+get '/recipes/:id/delete_at' do
+  COOKBOOK.remove_at(params[:index].to_i)
   redirect to '/'
 end
 
 get '/search' do
-  @results = ScrapeAllrecipesService.find_recipes(params[:keyword])
+  erb :search
+end
+
+get '/search/recipes' do
+  @results = SCRAPER.search(params[:keyword])
   @keyword = params[:keyword]
   erb :search_index
 end
 
-get '/search/:index/save' do
-  csv_file = File.join(__dir__, 'recipes.csv')
-  cookbook = Cookbook.new(csv_file)
-  new_recipe = Recipe.new(
-    @results[params[:index].to_i][:name],
-    @results[params[:index].to_i][:description],
-    @results[params[:index].to_i][:prep_time],
-    @results[params[:index].to_i][:rating]
-  )
-  cookbook.add(new_recipe)
-  redirect to '/'
-end
+# post '/search/recipes/:index/save' do
+#   recipe = Recipe.new(
+#     params[:name],
+#     params[:description],
+#     params[:rating],
+#     params[:prep_time],
+#     params[:tested]
+#   )
+#   COOKBOOK.add(new_recipe)
+#   redirect to '/'
+# end
 
 set :bind, '0.0.0.0'

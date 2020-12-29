@@ -1,19 +1,36 @@
-<h1>Add a recipe</h1>
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <h2>Add a recipe</h2>
 
-<form action="/recipes" method="post">
-  <div>
-    <label for="name">Name</label>
-    <input type="text" name="name">
-  </div>
-  <div>
-    <label for="name">Description</label>
-    <input type="text" name="description" >
-  </div>
-  <div>
-    <label for="name">URL</label>
-    <input type="url" name="link" required>
-  </div>
-  <input type="submit" value="Add to cookbook">
-</form>
+      <form action="/recipes/create" method="post">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input name="name" required type="text" class="form-control" id="recipe-name" placeholder="Name of recipe">
+        </div>
 
-<a href="/">Back to list</a>
+        <div class="form-group">
+            <label for="prep_time">Prep time (mins)</label>
+            <input name="time" required type="text" class="form-control" id="prep_time" placeholder="Preparation Time">
+        </div>
+
+        <div class="form-group">
+          <label for="description">Description</label>
+          <textarea class="form-control" placeholder="Description" name="description"></textarea>
+        </div>
+
+        <div class="form-group">
+          <div class="form-check">
+            <input name="tested" class="form-check-input" type="checkbox" id="markCheck">
+            <label class="form-check-label" for="markCheck">
+              Mark as tested
+            </label>
+          </div>
+        </div>
+        <button class="btn btn-success" type="submit">Add Recipe</button>
+      </form>
+      <p><a href="/">Back to list</a></p>
+    </div>
+  </div>
+</div>
+

@@ -1,15 +1,25 @@
-<h1>Welcome to your Recipe Book</h1>
-
-<% if @recipes.empty? %>
-  <p>You have no recipe links. Add a recipe or search a recipe to add.</p>
-<% else %>
-  <p>You currently have in your cookbook:</p>
-  <ul>
-    <% @recipes.each_with_index do |recipe, index| %>
-      <li><%= recipe.name %>: <%= recipe.description %> - <a href="/recipes/<%= index %>">Delete</a></li>
+<div class="container mt-4">
+  <h1>Welcome to your Cookbook</h1>
+  <a href="/new">Add a new recipe</a> | <a href="/search">Search allrecipes.com</a>
+    <% if @recipes.empty? %>
+      <p>You have no recipe links. Add some!</p>
+    <% else %>
+      <div class="row mt-4">
+        <% @recipes.each_with_index do |recipe, index| %>
+          <div class="col-md-4">
+            <div class="card mb-4 box-shadow">
+            <%# <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail" alt="Card image cap"> %>
+              <div class="card-body">
+                <h2 class="card-heading"><%= recipe.name %></h2>
+                <small class="text-muted">Prep time: <%= recipe.prep_time %> </small>
+                <p class="card-text"><%= recipe.description %></p>
+                <form method="POST" action="recipes/<%=index%>/delete">
+                  <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+                </form>
+              </div><!--./card-bodyx -->
+            </div><!--./card mb-4 -->
+          </div><!--./col-md-4 -->
+        <% end %>
     <% end %>
-  </ul>
-<% end %>
-
-<a href="/new">Add a recipe</a>
-<a href="/search">Find a recipe</a>
+  </div>
+</div>

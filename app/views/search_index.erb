@@ -1,1 +1,28 @@
+<div class="container mt-4">
+  <h2>Results for "<%=@keyword%>":</h2>
+  <div class="alert alert-info" role="alert">Select the recipe you want to save.</div>
+    <div class="row">
+      <% @results.each do |recipe| %>
+
+        <div class="col-md-4">
+          <div class="card mb-4 box-shadow">
+            <div class="card-body">
+              <h2 class="card-heading"><%= recipe.name %></h2>
+              <small class="text-muted">Preparation time: <%= recipe.prep_time %> | Rating: <%= recipe.rating %></small>
+              <p class="card-text"><%= recipe.description %></p>
+              <form action="/recipes/create" method="post">
+                <input name="name" value="<%= recipe.name %>" hidden>
+                <input name="description" value="<%= recipe.description %>" hidden>
+                <input name="prep_time" value="<%= recipe.prep_time %>" hidden>
+                <input name="rating" value="<%= recipe.rating %>" hidden>
+                <button type="submit" class="btn btn-sm btn-outline-success">Add to cookbook</button>
+              </form>
+            </div><!--./card-bodyx -->
+          </div><!--./card mb-4 -->
+        </div><!--./col-md-4 -->
+
+      <% end %>
+    </div>
+</div>
+
 
